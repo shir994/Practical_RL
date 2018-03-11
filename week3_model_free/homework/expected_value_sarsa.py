@@ -37,13 +37,14 @@ class EVSarsaAgent():
       - self.discount (discount rate aka gamma)
 
   """
-  def __init__(self,alpha,epsilon,discount,getLegalActions):
+  def __init__(self,alpha,epsilon,discount,getLegalActions, softmax=False):
     "We initialize agent and Q-values here."
     self.getLegalActions= getLegalActions
     self._qValues = defaultdict(lambda:defaultdict(lambda:0))
     self.alpha = alpha
     self.epsilon = epsilon
     self.discount = discount
+    self.softmax = softmax
     
   def getQValue(self, state, action):
     """
@@ -73,9 +74,22 @@ class EVSarsaAgent():
 
     #You'll need this to estimate action probabilities
     epsilon = self.epsilon
-    
-    value = <Your Code Here>
-    return value
+    mean_Q_value = 0
+
+    if self.softmax:
+      action_values = np.array([self.getQValue(state, action) for action in possibleActions])
+      mean_Q_value = np.sum(action_values * self.getPolicy(state))
+    else:
+      best_action = self.getPolicy(state)
+
+      for action in possibleActions:
+        if action == best_action:
+          mean_Q_value += (1 - epsilon) * self.getQValue(state, action)
+        else:
+          mean_Q_value += epsilon / (len(possibleActions) - 1) * self.getQValue(state, action)
+
+
+    return mean_Q_value
     
   def getPolicy(self, state):
     """
@@ -90,8 +104,16 @@ class EVSarsaAgent():
     
     best_action = None
 
-    best_action = possibleActions[np.argmax([self.getQValue(state, a) for a in possibleActions])]
-    return best_action
+    if self.softmax:
+      tau = self.epsilon
+      softmax_vals = np.array([self.getQValue(state, a) for a in possibleActions]) / tau
+      softmax_vals = np.exp(softmax_vals - softmax_vals.max())
+      softmax_vals = softmax_vals / softmax_vals.sum()
+      assert(len(softmax_vals) == len(possibleActions))
+      return softmax_vals
+    else:
+      best_action = possibleActions[np.argmax([self.getQValue(state, a) for a in possibleActions])]
+      return best_action
 
   def getAction(self, state):
     """
@@ -114,12 +136,17 @@ class EVSarsaAgent():
     	return None
 
     #agent parameters:
-    epsilon = self.epsilon
-
-    if np.random.random()<=epsilon:
-    	return random.choice(possibleActions)
+    if self.softmax:
+      probs = self.getPolicy(state)
+      action_index = np.searchsorted(np.cumsum(probs), np.random.random())
+      action = possibleActions[action_index]
     else:
-    	action = self.getPolicy(state)
+      epsilon = self.epsilon
+
+      if np.random.random()<=epsilon:
+      	return random.choice(possibleActions)
+      else:
+      	action = self.getPolicy(state)
     return action
 
   def update(self, state, action, nextState, reward):
