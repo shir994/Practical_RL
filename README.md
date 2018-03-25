@@ -54,11 +54,12 @@ The syllabus is approximate: the lectures may occur in a slightly different orde
 * [__week4_recap__](https://github.com/yandexdataschool/Practical_RL/tree/master/week4_%5Brecap%5D_deep_learning) - deep learning recap 
   * Lecture: Deep learning 101
   * Seminar: Simple image classification with convnets
-  * **HSE Deadline: 2018.02.26 23:59**
 
 * [__week4__](https://github.com/yandexdataschool/Practical_RL/tree/master/week4_approx_rl) Approximate reinforcement learning
   * Lecture: Infinite/continuous state space. Value function approximation. Convergence conditions. Multiple agents trick; experience replay, target networks, double/dueling/bootstrap DQN, etc.
   * Seminar:  Approximate Q-learning with experience replay. (CartPole, Atari)
+  * **HSE Deadline: 2018.03.04 23:30**
+  * ** YSDA Deadline: 2018.03.20 23.30**
 
 * [__week5__](https://github.com/yandexdataschool/Practical_RL/tree/master/week5_explore) Exploration in reinforcement learning
   * Lecture: Contextual bandits. Thompson Sampling, UCB, bayesian UCB. Exploration in model-based RL, MCTS. "Deep" heuristics for exploration.
@@ -88,11 +89,13 @@ The syllabus is approximate: the lectures may occur in a slightly different orde
   
 
 # Course staff
-Course materials and teaching by
-- [Fedor Ratnikov](https://github.com/justheuristic/) - lectures, seminars, hw checkups
-- [Oleg Vasilev](https://github.com/Omrigan) - seminars, hw checkups, technical support
+Course materials and teaching by: _[unordered]_
 - [Pavel Shvechikov](https://github.com/bestxolodec) - lectures, seminars, hw checkups, reading group
+- [Oleg Vasilev](https://github.com/Omrigan) - seminars, hw checkups, technical support
 - [Alexander Fritsler](https://github.com/Fritz449) - lectures, seminars, hw checkups
+- [Nikita Putintsev](https://github.com/qwasser) - seminars, hw checkups, organizing our hot mess
+- [Fedor Ratnikov](https://github.com/justheuristic/) - lectures, seminars, hw checkups
+- [Alexey Umnov](https://github.com/alexeyum) - seminars, hw checkups
 
 # Contributions
 * Using pictures from [Berkeley AI course](http://ai.berkeley.edu/home.html)
